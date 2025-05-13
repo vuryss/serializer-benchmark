@@ -1,0 +1,38 @@
+{
+    "name": "vuryss/serializer-benchmark",
+    "description": "Comparing serialization performance.",
+    "type": "library",
+    "require": {
+        "php": "^8.4",
+        "ext-json": "*",
+        "symfony/serializer": "^7.2",
+        "phpbench/phpbench": "^1.4",
+        "fakerphp/faker": "^1.24",
+        "symfony/property-access": "^7.2",
+        "vuryss/serializer": "^1.11",
+        "symfony/cache": "^7.2",
+        "symfony/messenger": "^7.2",
+        "symfony/mime": "^7.2"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.75"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Vuryss\\SerializerBenchmark\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vuryss\\SerializerBenchmark\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Georgi Georgiev",
+            "email": "vuryss@gmail.com"
+        }
+    ]
+}

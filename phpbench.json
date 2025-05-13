@@ -1,0 +1,14 @@
+{
+    "$schema":"./vendor/phpbench/phpbench/phpbench.schema.json",
+    "runner.bootstrap": "vendor/autoload.php",
+    "runner.path": "tests/Benchmarks",
+    "runner.iterations": 10,
+    "runner.warmup": 1,
+    "runner.revs": 50,
+    "report.generators": {
+        "all": {
+            "generator": "composite",
+            "reports": ["aggregate"]
+        }
+    }
+}

@@ -1,0 +1,25 @@
+name: serializer-benchmark
+
+services:
+    library:
+        build: .
+        volumes:
+            - .:/library
+        working_dir: /library
+        command: 'sleep infinity'
+        extra_hosts:
+            -   "host.docker.internal:host-gateway"
+        environment:
+            PHP_IDE_CONFIG: "serverName=library"
+            PHP_CS_FIXER_IGNORE_ENV: "1"
+        configs:
+            -   source: php.ini
+                target: /usr/local/etc/php/conf.d/zzzzz-php.ini
+
+configs:
+    php.ini:
+        content: |
+            xdebug.mode=off
+            xdebug.client_host=host.docker.internal
+            opcache.enable_cli=1
+            memory_limit=1G
