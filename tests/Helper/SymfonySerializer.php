@@ -15,6 +15,7 @@ use Symfony\Component\PropertyInfo\Extractor\SerializerExtractor;
 use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata;
+use Symfony\Component\Serializer\Mapping\Factory\CacheClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
 use Symfony\Component\Serializer\Mapping\Loader\AttributeLoader;
 use Symfony\Component\Serializer\Mapping\Loader\LoaderChain;
@@ -43,7 +44,7 @@ class SymfonySerializer
     private static PropertyAccessor $propertyAccessor;
     private static ReflectionExtractor $reflectionExtractor;
     private static PropertyNormalizer $propertyNormalizer;
-    private static ClassMetadataFactory $classMetadataFactory;
+    private static CacheClassMetadataFactory $classMetadataFactory;
     private static MetadataAwareNameConverter $metadataAwareNameConverter;
     private static ClassDiscriminatorFromClassMetadata $classDiscriminatorFromClassMetadata;
     private static MimeTypes $mimeTypes;
@@ -153,13 +154,17 @@ class SymfonySerializer
         return self::$propertyNormalizer;
     }
 
-    private static function getClassMetadataFactory(): ClassMetadataFactory
+    private static function getClassMetadataFactory(): CacheClassMetadataFactory
     {
         if (!isset(self::$classMetadataFactory)) {
-            self::$classMetadataFactory = new ClassMetadataFactory(
+            $classMetadataFactory = new ClassMetadataFactory(
                 new LoaderChain(
                     [new AttributeLoader()]
-                )
+                ),
+            );
+            self::$classMetadataFactory = new CacheClassMetadataFactory(
+                $classMetadataFactory,
+                new ArrayAdapter(),
             );
         }
 
